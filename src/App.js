@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
+import InviteModal from './InviteModal';
 import cls from './App.module.scss';
 
 function App() {
   const [modalIsOpen, setIsOpen] = useState(false);
   const handleInviteClick = () => {
     setIsOpen(true);
+  };
+
+  const handleClose = () => {
+    setIsOpen(false);
   };
 
   return (
@@ -23,6 +28,7 @@ function App() {
         <span>Made with heart in Melbourne.</span>
         <span>2016 Brocoli & Co. All right reserved</span>
       </div>
+      <InviteModal isOpen={modalIsOpen} handleClose={handleClose} />
     </div>
   );
 }
