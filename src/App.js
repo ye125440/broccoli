@@ -1,23 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import cls from './App.module.scss';
 
 function App() {
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const handleInviteClick = () => {
+    setIsOpen(true);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={cls.container}>
+      <div className={cls.header}>BROCCOLI & CO.</div>
+      <div className={cls.main}>
+        <div className={cls.slogan}>A better way</div>
+        <div className={cls.slogan}>to enjoy every day.</div>
+        <div className={cls.hint}>Be the first to know when we launch.</div>
+        <button className={cls.inviteButton} onClick={handleInviteClick} type="button">
+          {modalIsOpen}
+          Request an invite
+        </button>
+      </div>
+      <div className={cls.footer}>
+        <span>Made with heart in Melbourne.</span>
+        <span>2016 Brocoli & Co. All right reserved</span>
+      </div>
     </div>
   );
 }
