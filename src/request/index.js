@@ -5,7 +5,7 @@ axios.defaults.timeout = 60000;
 axios.interceptors.response.use(
   (response) => response,
   (error) => {
-    console.log('debug ~ file: index.js ~ line 8 ~ error', error);
+    throw error;
   },
 );
 

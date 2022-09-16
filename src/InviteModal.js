@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Modal from 'react-modal';
+import toast, { Toaster } from 'react-hot-toast';
 import PropTypes from 'prop-types';
 import { sendInvite } from './api';
 // import cls from './InviteModal.module.scss';
@@ -26,31 +27,43 @@ const customStyles = {
 Modal.setAppElement('#root');
 
 export default function InviteModal({ isOpen, handleClose }) {
-  const afterOpenModal = () => {
-    // subtitle.style.color = '#f00';
-  };
+  const [isSendingRequest, setIsSendingRequest] = useState(false);
   const handleSubmit = async () => {
-    const params = { name: 'test', email: 'test@gmail.com' };
-    const res = await sendInvite(params);
-    console.log('debug ~ file: InviteModal.js ~ line 34 ~ handleSubmit ~ res', res);
+    setIsSendingRequest(true);
+    const params = { name: 'test', email: 'usedemail@airwallex.com1' };
+    try {
+      const res = await sendInvite(params);
+      toast.success(res);
+    } catch (err) {
+      const errMsg = err?.response?.data?.errorMessage ?? err.message;
+      toast.error(errMsg);
+    } finally {
+      setIsSendingRequest(false);
+    }
   };
   return (
-    <Modal
-      isOpen={isOpen}
-      onAfterOpen={afterOpenModal}
-      onRequestClose={handleClose}
-      style={customStyles}
-      contentLabel="Invite Modal"
-    >
-      <h2>Hello</h2>
-      <button type="button" onClick={handleSubmit}>
-        send
-      </button>
-      <div>I am a modal</div>
-      <form>
-        <input />
-      </form>
-    </Modal>
+    <>
+      <Modal
+        isOpen={isOpen}
+        onRequestClose={handleClose}
+        style={customStyles}
+        contentLabel="Invite Modal"
+      >
+        <h2>Hello</h2>
+        <button
+          type="button"
+          onClick={handleSubmit}
+          disabled={isSendingRequest}
+        >
+          send
+        </button>
+        <div>I am a modal</div>
+        <form>
+          <input />
+        </form>
+      </Modal>
+      <Toaster />
+    </>
   );
 }
 

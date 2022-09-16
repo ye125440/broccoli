@@ -3,7 +3,7 @@ import InviteModal from './InviteModal';
 import cls from './App.module.scss';
 
 function App() {
-  const [modalIsOpen, setIsOpen] = useState(false);
+  const [isModalOpen, setIsOpen] = useState(false);
   const handleInviteClick = () => {
     setIsOpen(true);
   };
@@ -20,7 +20,7 @@ function App() {
         <div className={cls.slogan}>to enjoy every day.</div>
         <div className={cls.hint}>Be the first to know when we launch.</div>
         <button className={cls.inviteButton} onClick={handleInviteClick} type="button">
-          {modalIsOpen}
+          {isModalOpen}
           Request an invite
         </button>
       </div>
@@ -28,7 +28,7 @@ function App() {
         <span>Made with heart in Melbourne.</span>
         <span>2016 Brocoli & Co. All right reserved</span>
       </div>
-      <InviteModal isOpen={modalIsOpen} handleClose={handleClose} />
+      <InviteModal isOpen={isModalOpen} handleClose={handleClose} />
     </div>
   );
 }
