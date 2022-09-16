@@ -19,7 +19,7 @@ const customStyles = {
     bottom: 'auto',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
-    width: '750px',
+    width: '75vmin',
   },
 };
 Modal.setAppElement('#root');
