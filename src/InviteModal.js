@@ -25,12 +25,17 @@ const customStyles = {
     width: '75vmin',
   },
 };
+const emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 Modal.setAppElement('#root');
 
 export default function InviteModal({ isOpen, handleClose }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [hasDone, setHasDone] = useState(false);
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const onSubmit = async () => {
     setIsSubmitting(true);
     const params = { name: 'test', email: 'usedemail@airwallex.com1' };
@@ -45,6 +50,14 @@ export default function InviteModal({ isOpen, handleClose }) {
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const confirmEmail = (value) => {
+    console.log(
+      'debug ~ file: InviteModal.js ~ line 56 ~ confirmEmail ~ value',
+      value,
+    );
+    return true;
   };
   return (
     <>
@@ -65,22 +78,52 @@ export default function InviteModal({ isOpen, handleClose }) {
                 <input
                   className={cls.commonFormField}
                   placeholder="Full name"
-                  {...register('name')}
+                  {...register('name', { required: true, minLength: 3 })}
                 />
+                {errors?.name?.type === 'required' && (
+                  <p className={cls.validateTip}>
+                    &#9888; Full name field is required
+                  </p>
+                )}
+                {errors?.name?.type === 'minLength' && (
+                  <p className={cls.validateTip}>
+                    &#9888; Full name needs to be at least 3 characters long
+                  </p>
+                )}
               </div>
               <div>
                 <input
                   className={cls.commonFormField}
                   placeholder="Email"
-                  {...register('email')}
+                  {...register('email', {
+                    required: true,
+                    pattern: emailRegex,
+                  })}
                 />
+                {errors?.email?.type === 'required' && (
+                  <p className={cls.validateTip}>
+                    &#9888; Email field is required
+                  </p>
+                )}
+                {errors?.email?.type === 'pattern' && (
+                  <p className={cls.validateTip}>
+                    &#9888; Email needs to be in validation email format
+                  </p>
+                )}
               </div>
               <div>
                 <input
                   className={cls.commonFormField}
                   placeholder="Confirm email"
-                  {...register('confirm email')}
+                  {...register('confirmEmail', {
+                    validate: (value) => confirmEmail(value),
+                  })}
                 />
+                {errors?.confirmEmail?.type === 'validate' && (
+                  <p className={cls.validateTip}>
+                    &#9888; Confirm Email needs to match Email
+                  </p>
+                )}
               </div>
               <div className={cls.submitContainer}>
                 <input
