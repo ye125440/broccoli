@@ -24,9 +24,9 @@ function App() {
           Request an invite
         </button>
       </div>
-      <div className={cls.footer}>
-        <span>Made with heart in Melbourne.</span>
-        <span>2016 Brocoli & Co. All right reserved</span>
+      <div className={`${cls.footer} ${cls.italic}`}>
+        <span>Made with &hearts; in Melbourne.</span>
+        <span>&copy; 2016 Brocoli & Co. All right reserved</span>
       </div>
       <InviteModal isOpen={isModalOpen} handleClose={handleClose} />
     </div>
