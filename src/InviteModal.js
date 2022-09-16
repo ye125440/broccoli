@@ -1,6 +1,7 @@
 import React from 'react';
 import Modal from 'react-modal';
 import PropTypes from 'prop-types';
+import { sendInvite } from './api';
 // import cls from './InviteModal.module.scss';
 
 const customStyles = {
@@ -25,11 +26,13 @@ const customStyles = {
 Modal.setAppElement('#root');
 
 export default function InviteModal({ isOpen, handleClose }) {
-  // const closeModal = () => {
-  //   handleClose();
-  // };
   const afterOpenModal = () => {
     // subtitle.style.color = '#f00';
+  };
+  const handleSubmit = async () => {
+    const params = { name: 'test', email: 'test@gmail.com' };
+    const res = await sendInvite(params);
+    console.log('debug ~ file: InviteModal.js ~ line 34 ~ handleSubmit ~ res', res);
   };
   return (
     <Modal
@@ -40,8 +43,8 @@ export default function InviteModal({ isOpen, handleClose }) {
       contentLabel="Invite Modal"
     >
       <h2>Hello</h2>
-      <button type="button" onClick={handleClose}>
-        close
+      <button type="button" onClick={handleSubmit}>
+        send
       </button>
       <div>I am a modal</div>
       <form>
