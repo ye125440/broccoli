@@ -120,9 +120,15 @@ export default function InviteModal({ isOpen, handleClose }) {
                   className={cls.commonFormField}
                   placeholder="Confirm email"
                   {...register('confirmEmail', {
+                    required: true,
                     validate: (value) => confirmEmail(value),
                   })}
                 />
+                {errors?.confirmEmail?.type === 'required' && (
+                  <p className={cls.validateTip}>
+                    &#9888; Confirm Email field is required
+                  </p>
+                )}
                 {errors?.confirmEmail?.type === 'validate' && (
                   <p className={cls.validateTip}>
                     &#9888; Confirm Email needs to match Email
