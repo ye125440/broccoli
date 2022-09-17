@@ -35,8 +35,13 @@ export default function InviteModal({ isOpen, handleClose }) {
     register,
     handleSubmit,
     getValues,
+    setFocus,
     formState: { errors },
   } = useForm();
+
+  const afterOpenModal = () => {
+    setFocus('name');
+  };
   const onSubmit = async (data) => {
     setIsSubmitting(true);
     const { name, email } = data;
@@ -62,6 +67,7 @@ export default function InviteModal({ isOpen, handleClose }) {
       <Modal
         appElement={document.querySelector('#root')}
         isOpen={isOpen}
+        onAfterOpen={afterOpenModal}
         onRequestClose={handleClose}
         style={customStyles}
         contentLabel="Invite Modal"
@@ -69,6 +75,7 @@ export default function InviteModal({ isOpen, handleClose }) {
         {!hasDone && (
           <>
             <h3 className={cls.title}>Request an invite</h3>
+            <div className={cls.line} />
             <form onSubmit={handleSubmit((data) => onSubmit(data))}>
               <div>
                 <input
@@ -135,6 +142,7 @@ export default function InviteModal({ isOpen, handleClose }) {
         {hasDone && (
           <>
             <h3 className={cls.title}>All done!</h3>
+            <div className={cls.line} />
             <form onSubmit={handleClose}>
               <div className={cls.doneTip}>
                 <span>You will be one of the first to experience</span>
