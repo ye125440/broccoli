@@ -29,6 +29,9 @@
   box-sizing: border-box;
 }
 
-form > div + div {
-  margin-top: 12px;
-}
+form {
+  margin-top: 50px;
+  & > div + div {
+    margin-top: 12px;
+  }
+} 

@@ -22,7 +22,7 @@ const customStyles = {
     bottom: 'auto',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
-    width: '75vmin',
+    width: 'min(75vmin, 400px)',
   },
 };
 const emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -34,13 +34,14 @@ export default function InviteModal({ isOpen, handleClose }) {
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm();
-  const onSubmit = async () => {
+  const onSubmit = async (data) => {
     setIsSubmitting(true);
-    const params = { name: 'test', email: 'usedemail@airwallex.com1' };
+    const { name, email } = data;
     try {
-      const res = await sendInvite(params);
+      const res = await sendInvite({ name, email });
       if (res === 'Registered') {
         setHasDone(true);
       }
@@ -53,11 +54,8 @@ export default function InviteModal({ isOpen, handleClose }) {
   };
 
   const confirmEmail = (value) => {
-    console.log(
-      'debug ~ file: InviteModal.js ~ line 56 ~ confirmEmail ~ value',
-      value,
-    );
-    return true;
+    const email = getValues('email');
+    return value === email;
   };
   return (
     <>
@@ -70,10 +68,7 @@ export default function InviteModal({ isOpen, handleClose }) {
         {!hasDone && (
           <>
             <h3 className={cls.title}>Request an invite</h3>
-            <button type="button" onClick={onSubmit} disabled={isSubmitting}>
-              send
-            </button>
-            <form onSubmit={handleSubmit((data) => console.log(data))}>
+            <form onSubmit={handleSubmit((data) => onSubmit(data))}>
               <div>
                 <input
                   className={cls.commonFormField}
@@ -139,7 +134,7 @@ export default function InviteModal({ isOpen, handleClose }) {
         {hasDone && (
           <>
             <h3 className={cls.title}>All done!</h3>
-            <form>
+            <form onSubmit={handleClose}>
               <div className={cls.doneTip}>
                 <span>You will be one of the first to experience</span>
                 <span>Broccoli & Co. when we launch.</span>

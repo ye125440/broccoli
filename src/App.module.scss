@@ -48,7 +48,7 @@ $commonHeight: min(100px, 20%);
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 100px 0 100px 0;
+    padding: $commonHeight 0;
     height: calc(100vh - 200px);
     width: 100%;
     text-align: center;
