@@ -73,9 +73,7 @@ test('should display "Confirm Email needs to match Email" when confirmEmail file
 test('should display no error tip when all values are valid', async () => {
   const handleClose = jest.fn();
   const isOpen = true;
-  await act(async () => {
-    render(<InviteModal isOpen={isOpen} handleClose={handleClose} />);
-  });
+  render(<InviteModal isOpen={isOpen} handleClose={handleClose} />);
   const sendButton = screen.getByRole('button', { name: 'Send' });
   const nameInput = screen.getByPlaceholderText(/Full name/);
   const emailInput = screen.getByPlaceholderText(/Email/);
@@ -83,10 +81,11 @@ test('should display no error tip when all values are valid', async () => {
   userEvent.type(nameInput, 'Someone');
   userEvent.type(emailInput, 'test@gmail.com');
   userEvent.type(confirmEmailInput, 'test@gmail.com');
-  userEvent.click(sendButton);
-  await waitFor(() => {
-    const errors = screen.queryAllByText(/validateTip/);
-    screen.debug();
-    expect(errors).toHaveLength(0);
+  await act(async () => {
+    userEvent.click(sendButton);
+    await waitFor(async () => {
+      const errors = screen.queryAllByText(/validateTip/);
+      expect(errors).toHaveLength(0);
+    });
   });
 });

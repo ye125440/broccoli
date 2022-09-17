@@ -1,7 +1,7 @@
 # Brief For Home Test
 ## Getting Started
 
-This project is developed based on react framework, and is set up by running the `npx create-react-app broccoli` command. It offers a modern build setup(webpack) with no configuration. The solution use CSS modules styling approach, which gives you the ability to control your element styles in more granular way. Unit test files were written(`xxx.test.js`) to make sure the app behaves as expected.
+This project is developed based on react framework, and is set up by running the `npx create-react-app broccoli` command. It offers a modern build setup(webpack) with no configuration. The solution use CSS modules styling approach, which gives you the ability to control your element styles in more granular way. Add the appropriate style to the component to make this solution mobile-friendly. Unit test files were written(`xxx.test.js`) to make sure the app behaves as expected.
 
 ## Available Scripts
 
