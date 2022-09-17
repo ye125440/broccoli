@@ -67,6 +67,7 @@ export default function InviteModal({ isOpen, handleClose }) {
       <Modal
         appElement={document.querySelector('#root')}
         isOpen={isOpen}
+        ariaHideApp={false}
         onAfterOpen={afterOpenModal}
         onRequestClose={handleClose}
         style={customStyles}
