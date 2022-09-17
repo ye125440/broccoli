@@ -26,7 +26,7 @@ const customStyles = {
   },
 };
 const emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-Modal.setAppElement('#root');
+// Modal.setAppElement('#root');
 
 export default function InviteModal({ isOpen, handleClose }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -60,6 +60,7 @@ export default function InviteModal({ isOpen, handleClose }) {
   return (
     <>
       <Modal
+        appElement={document.querySelector('#root')}
         isOpen={isOpen}
         onRequestClose={handleClose}
         style={customStyles}
